@@ -58,7 +58,7 @@ public class Dealer {
             giveCard(selfCards);
         }
         String[] choices = new String[]{"dunce", "conservative", "aggressive"};
-        int randomIndex = new Random().nextInt(2);
+        int randomIndex = new Random().nextInt(3);
         System.out.println("The dealer was: " + choices[randomIndex]);
         if (choices[randomIndex].equals("dunce")) {
                 dunceBehavior(sumHisCards);
