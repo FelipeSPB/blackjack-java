@@ -1,15 +1,15 @@
 package blackjack;
 
-import blackjack.enums.CardNames;
+import blackjack.enums.CardTypes;
 import blackjack.enums.Naipe;
 
 public class Card {
 
     Naipe naipe;
-    CardNames type;
+    CardTypes type;
     int value;
 
-    public Card(Naipe naipe, CardNames type) {
+    public Card(Naipe naipe, CardTypes type) {
         this.naipe = naipe;
         this.type = type;
     }
@@ -18,7 +18,7 @@ public class Card {
         return naipe;
     }
 
-    public CardNames getName() {
+    public CardTypes getName() {
         return type;
     }
 

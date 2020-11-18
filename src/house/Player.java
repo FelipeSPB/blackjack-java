@@ -6,10 +6,19 @@ import java.util.ArrayList;
 
 public class Player {
 
+
     ArrayList<Chip> chips = new ArrayList<Chip>();
     ArrayList<Card> cards = new ArrayList<Card>();
 
     public Player(){
+    }
+
+    public ArrayList<Chip> getChips() {
+        return chips;
+    }
+
+    public void setChips(ArrayList<Chip> chips) {
+        this.chips = chips;
     }
 
     public void putBet(ArrayList<Chip> chipsBet){
@@ -18,4 +27,8 @@ public class Player {
     public ArrayList<Card> getCards() {
         return cards;
     }
+
+
+
+
 }
