@@ -13,6 +13,7 @@ public class Program {
         match.setupMatch();
         while(true){
             UI.printGame(match);
+            mrDealer.dealerTurn(match.countValues(mrDealer.getSelfCards()));
         }
     }
 }
