@@ -71,7 +71,6 @@ public class Dealer {
             System.out.println("The dealer is waiting for you !");
         }
         else{
-
             String[] choices = new String[]{"dunce", "conservative", "aggressive"};
             int randomIndex = new Random().nextInt(3);
             if (choices[randomIndex].equals("dunce")) {
@@ -89,11 +88,11 @@ public class Dealer {
 
     private void dunceBehavior(int sumHisCards) {
         boolean amoebaThinking = sumHisCards >= 11 && sumHisCards < 17;
-        if (!amoebaThinking && sumHisCards < 21) {
+        if (!amoebaThinking && 21 > sumHisCards) {
             giveCard(selfCards);
             System.out.println("The dealer added a card for his hand.");
         }
-        else {
+        else{
             setStatus(true);
             System.out.println("The Dealer Stands!");
         }
@@ -105,7 +104,7 @@ public class Dealer {
             giveCard(selfCards);
             System.out.println("The dealer added a card for his hand.");
         }
-        else {
+        else{
             setStatus(true);
             System.out.println("The Dealer Stands!");
         }
