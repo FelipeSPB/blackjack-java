@@ -7,15 +7,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import static blackjack.BlackjackMethods.countValues;
+
 public class Dealer {
 
-    ArrayList<Card> selfCards = new ArrayList<Card>();
-    ArrayList<Card> deck;
-    ArrayList<Chip> chipsHouse;
-    ArrayList<Chip> chipsBet;
+   private ArrayList<Card> selfCards = new ArrayList<Card>();
+   private ArrayList<Card> deck;
+   private ArrayList<Chip> chipsHouse;
+   private ArrayList<Chip> chipsBet;
+   private Boolean status = false;
+
 
     public Dealer() {
     }
+
 
 
     public ArrayList<Card> getDeck() {
@@ -24,6 +29,14 @@ public class Dealer {
 
     public ArrayList<Card> getSelfCards() {
         return selfCards;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public void setDeck(ArrayList<Card> deck) {
@@ -52,15 +65,16 @@ public class Dealer {
             deck.remove(0);
         }
     }
-;
+
     public void dealerTurn(int sumHisCards) {
-        if (sumHisCards < 11) {
-            giveCard(selfCards);
+        if(status){
+            System.out.println("The dealer is waiting for you !");
         }
-        String[] choices = new String[]{"dunce", "conservative", "aggressive"};
-        int randomIndex = new Random().nextInt(3);
-        System.out.println("The dealer was: " + choices[randomIndex]);
-        if (choices[randomIndex].equals("dunce")) {
+        else{
+
+            String[] choices = new String[]{"dunce", "conservative", "aggressive"};
+            int randomIndex = new Random().nextInt(3);
+            if (choices[randomIndex].equals("dunce")) {
                 dunceBehavior(sumHisCards);
 
             }
@@ -70,14 +84,18 @@ public class Dealer {
             if (choices[randomIndex].equals("aggresive")) {
                 aggressiveBehavior(sumHisCards);
             }
-        System.out.println(selfCards);
+        }
     }
-
 
     private void dunceBehavior(int sumHisCards) {
         boolean amoebaThinking = sumHisCards >= 11 && sumHisCards < 17;
         if (!amoebaThinking && sumHisCards < 21) {
             giveCard(selfCards);
+            System.out.println("The dealer added a card for his hand.");
+        }
+        else {
+            setStatus(true);
+            System.out.println("The Dealer Stands!");
         }
     }
 
@@ -85,6 +103,11 @@ public class Dealer {
         boolean conservativeMind = sumHisCards >= 17 && 21 > sumHisCards;
         if (!conservativeMind) {
             giveCard(selfCards);
+            System.out.println("The dealer added a card for his hand.");
+        }
+        else {
+            setStatus(true);
+            System.out.println("The Dealer Stands!");
         }
     }
 
@@ -92,9 +115,17 @@ public class Dealer {
         boolean blackjackOrDeath = sumHisCards == 20;
         if(!blackjackOrDeath){
             giveCard(selfCards);
+            System.out.println("The dealer added a card for his hand.");
+        }
+        else {
+            setStatus(true);
+            System.out.println("The Dealer Stands!");
         }
     }
 
+    public int getSumCard(ArrayList<Card> cards){
+        return countValues(cards);
+    }
 
 };
 

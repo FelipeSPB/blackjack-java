@@ -11,29 +11,24 @@ import java.util.List;
 
 public class BlackjackMatch {
 
+
+    private Player player;
+    private Dealer dealer;
+
     public Player getPlayer() {
         return player;
     }
-
     public Dealer getDealer() {
         return dealer;
     }
 
-    private Player player;
-    private Dealer dealer;
 
     public BlackjackMatch(Player player, Dealer dealer) {
         this.player = player;
         this.dealer = dealer;
     }
 
-    public int countValues(ArrayList<Card> cards){
-        int totalValue = 0;
-        for (Card indexCard: cards) {
-            totalValue += indexCard.getValue();
-        }
-        return totalValue;
-    }
+
 
 
     public void setupMatch(){
@@ -46,13 +41,9 @@ public class BlackjackMatch {
 
             }
         }
+
         dealer.setDeck(deck);
         dealer.shuffleCards();
-
-        //testing the deck
-
-        System.out.println(dealer.getDeck());
-
         dealer.giveCard(player.getCards());
         dealer.giveCard(dealer.getSelfCards());
         dealer.giveCard(player.getCards());

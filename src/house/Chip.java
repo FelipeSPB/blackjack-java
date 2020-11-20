@@ -4,8 +4,8 @@ import house.enums.ChipColor;
 
 public class Chip {
 
-    ChipColor color;
-    int value = color.getValue();
+    private ChipColor color;
+    private int value = color.getValue();
 
     public ChipColor getColor() {
         return color;
