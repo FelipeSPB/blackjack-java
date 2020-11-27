@@ -2,7 +2,7 @@ package house;
 
 
 import blackjack.Card;
-import house.enums.ChipColor;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -13,15 +13,34 @@ public class Dealer {
 
    private ArrayList<Card> selfCards = new ArrayList<Card>();
    private ArrayList<Card> deck;
-   private ArrayList<Chip> chipsHouse;
-   private ArrayList<Chip> chipsBet;
+   private int houseAmount = 1000;
+   private int betSum;
    private Boolean status = false;
 
 
     public Dealer() {
     }
 
+    public int getBetSum() {
+        return betSum;
+    }
 
+    public void setBetSum(int betSum) {
+        this.betSum = betSum;
+    }
+
+    public void gettingTheBets(int playerBet){
+        houseAmount -= playerBet;
+        betSum += 2*playerBet;
+    }
+
+    public void setHouseAmount(int houseAmount) {
+        this.houseAmount = houseAmount;
+    }
+
+    public int getHouseAmount() {
+        return houseAmount;
+    }
 
     public ArrayList<Card> getDeck() {
         return deck;
@@ -41,18 +60,6 @@ public class Dealer {
 
     public void setDeck(ArrayList<Card> deck) {
         this.deck = deck;
-    }
-
-    protected ArrayList<Chip> exchangeChip(Chip chipToExchange, ChipColor option, ArrayList<Chip> chips) {
-        for (int qtdChips = chipToExchange.getValue() / option.getValue(); qtdChips > 0; qtdChips--) {
-            chips.add(new Chip(option));
-        }
-        for (Chip indexChip : chips) {
-            if (indexChip == chipToExchange) {
-                chips.remove(chipToExchange);
-            }
-        }
-        return chips;
     }
 
     public void shuffleCards() {

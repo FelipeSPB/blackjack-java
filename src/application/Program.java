@@ -14,6 +14,7 @@ public class Program {
         UI.welcomePrint();
         match.setupMatch();
         while(true){
+
             if(!BlackjackMethods.checkingResults(me,mrDealer)){
                 System.out.println("Thanks for playing !");
                 break;

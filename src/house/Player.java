@@ -11,9 +11,12 @@ import static blackjack.BlackjackMethods.countValues;
 public class Player {
 
 
-    private ArrayList<Chip> chips = new ArrayList<Chip>();
+
     private ArrayList<Card> cards = new ArrayList<Card>();
     private Boolean status = false;
+    private int amount = 300;
+    private Boolean betStatus = false;
+
 
     public Player(){
     }
@@ -26,20 +29,22 @@ public class Player {
         this.status = status;
     }
 
-    public ArrayList<Chip> getChips() {
-        return chips;
+    public Boolean getBetStatus() {
+        return betStatus;
     }
 
-    public void setChips(ArrayList<Chip> chips) {
-        this.chips = chips;
+    public int getAmount() {
+        return amount;
     }
 
-    public void putBet(ArrayList<Chip> chipsBet){
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     public ArrayList<Card> getCards() {
         return cards;
     }
+
 
     public void playerChoice (BlackjackMatch match) {
         if (status) {
@@ -47,7 +52,7 @@ public class Player {
         }
         else {
             Scanner inputPlayer = new Scanner(System.in);
-            System.out.println("Type 1 for add one card; type 2 to stand; type 3 to place bet");
+            System.out.println("Type 1 for add one card; type 2 to stand;");
             String choiceMade = inputPlayer.nextLine();
             if (choiceMade.equals("1")) {
                 match.getDealer().giveCard(cards);
@@ -57,16 +62,30 @@ public class Player {
             if (choiceMade.equals("2")) {
                 setStatus(true);
             }
-            if (choiceMade.equals("3")) {
-                System.out.println("To be implemented;");
-            }
-        }
+         }
     }
 
     public int getSumCard(ArrayList<Card> cards){
         return countValues(cards);
     }
 
-
+    public int placeBet() {
+        if (betStatus){
+            System.out.println("You've already placed a bet.");
+            return 0;
+        }
+        int betWished;
+        do{
+            Scanner valueBet = new Scanner(System.in);
+            System.out.println("Write the value do you want to bet, but don't use decimals.");
+            betWished = valueBet.nextInt();
+            if (betWished > amount){
+                System.out.println("Insufficient money...");
+            }
+        }while(betWished > amount);
+        betStatus = true;
+        amount -= betWished;
+        return betWished;
+    }
 
 }
