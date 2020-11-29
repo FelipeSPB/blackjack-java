@@ -12,10 +12,10 @@ public class Player {
 
 
 
-    private ArrayList<Card> cards = new ArrayList<Card>();
-    private Boolean status = false;
-    private int amount = 300;
-    private Boolean betStatus = false;
+    private ArrayList<Card> cards;
+    private Boolean status;
+    private int amount;
+    private Boolean betStatus;
 
 
     public Player(){
@@ -33,6 +33,10 @@ public class Player {
         return betStatus;
     }
 
+    public void setBetStatus(Boolean betStatus) {
+        this.betStatus = betStatus;
+    }
+
     public int getAmount() {
         return amount;
     }
@@ -45,6 +49,9 @@ public class Player {
         return cards;
     }
 
+    public void setCards(ArrayList<Card> cards) {
+        this.cards = cards;
+    }
 
     public void playerChoice (BlackjackMatch match) {
         if (status) {
@@ -57,10 +64,9 @@ public class Player {
             if (choiceMade.equals("1")) {
                 match.getDealer().giveCard(cards);
                 System.out.println("This card was added to your hand:"+ getCards().get((getCards().size() - 1)));
-                setStatus(false);
             }
-            if (choiceMade.equals("2")) {
-                setStatus(true);
+            else{
+                status = true;
             }
          }
     }

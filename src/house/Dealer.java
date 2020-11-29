@@ -11,14 +11,18 @@ import static blackjack.BlackjackMethods.countValues;
 
 public class Dealer {
 
-   private ArrayList<Card> selfCards = new ArrayList<Card>();
+   private ArrayList<Card> selfCards;
    private ArrayList<Card> deck;
-   private int houseAmount = 1000;
+   private int houseAmount;
    private int betSum;
    private Boolean status = false;
 
 
     public Dealer() {
+    }
+
+    public void setSelfCards(ArrayList<Card> selfCards) {
+        this.selfCards = selfCards;
     }
 
     public int getBetSum() {
@@ -30,8 +34,13 @@ public class Dealer {
     }
 
     public void gettingTheBets(int playerBet){
-        houseAmount -= playerBet;
-        betSum += 2*playerBet;
+        if(playerBet > getHouseAmount()){
+            betSum += playerBet + getHouseAmount();
+            setHouseAmount(0);
+        }else{
+            setHouseAmount(getHouseAmount() - playerBet);
+            betSum += 2 * playerBet;
+        }
     }
 
     public void setHouseAmount(int houseAmount) {
@@ -95,7 +104,11 @@ public class Dealer {
 
     private void dunceBehavior(int sumHisCards) {
         boolean amoebaThinking = sumHisCards >= 11 && sumHisCards < 17;
-        if (!amoebaThinking && 21 > sumHisCards) {
+        if(sumHisCards > 21){
+            setStatus(true);
+            System.out.println("The Dealer Stands!");
+        }
+        else if (!amoebaThinking) {
             giveCard(selfCards);
             System.out.println("The dealer added a card for his hand.");
         }
@@ -107,7 +120,11 @@ public class Dealer {
 
     private void conservativeBehavior(int sumHisCards) {
         boolean conservativeMind = sumHisCards >= 17 && 21 > sumHisCards;
-        if (!conservativeMind) {
+        if(sumHisCards > 21){
+            setStatus(true);
+            System.out.println("The Dealer Stands!");
+        }
+        else if (!conservativeMind) {
             giveCard(selfCards);
             System.out.println("The dealer added a card for his hand.");
         }
@@ -118,8 +135,12 @@ public class Dealer {
     }
 
     private void aggressiveBehavior(int sumHisCards){
-        boolean blackjackOrDeath = sumHisCards == 20;
-        if(!blackjackOrDeath){
+        boolean blackjackOrDeath = sumHisCards >= 20 && 21 >=sumHisCards;
+        if(sumHisCards > 21){
+            setStatus(true);
+            System.out.println("The Dealer Stands!");
+        }
+        else if(!blackjackOrDeath){
             giveCard(selfCards);
             System.out.println("The dealer added a card for his hand.");
         }

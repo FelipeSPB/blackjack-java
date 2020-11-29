@@ -29,8 +29,6 @@ public class BlackjackMatch {
     }
 
 
-
-
     public void setupMatch(){
         ArrayList<Card> deck = new ArrayList<Card>();
         List<Naipe> naipes = Arrays.asList(Naipe.values());
@@ -42,13 +40,24 @@ public class BlackjackMatch {
             }
         }
 
+        player.setCards(new ArrayList<Card>());
+        dealer.setSelfCards(new ArrayList<Card>());
         dealer.setDeck(deck);
         dealer.shuffleCards();
+        player.setStatus(false);
+        player.setBetStatus(false);
         dealer.giveCard(player.getCards());
         dealer.giveCard(dealer.getSelfCards());
         dealer.giveCard(player.getCards());
         dealer.giveCard(dealer.getSelfCards());
+        dealer.setBetSum(0);
+        if(player.getAmount() == 0 && dealer.getHouseAmount() == 0){
+            player.setAmount(300);
+            dealer.setHouseAmount(1000);
+        }
     }
+
+
 
 
 
